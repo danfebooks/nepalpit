@@ -12,10 +12,10 @@
  * This is the metadata for tax brackets in Nepal with FY fyStartDate and fyEndDateDate
  */
 
-import { data } from './data.js';
+import data from "./data.js";
 
 const breakdown = (year) => {
-	const allBrackets = JSON.parse(data);
+	const allBrackets = data;
 	const brackets = allBrackets[year];
 
 	return brackets;

@@ -239,17 +239,78 @@ const obj = {
 		fyStartDate: 'July 17, 2023',
 		fyStartDateNe: 'Shrawan 1, 2080',
 		fyEndDate: 'July 15, 2024',
-		fyEndDateNe: 'Asadh 32, 2081',
-		brackets: [
-			{
-				single: [{ 400000: 1 }, { 100000: 2 }, { 200000: 3 }, { 1300000: 4 }],
-			},
-			{
-				married: [450000, { 100000: 2 }, { 200000: 3 }, { 1250000: 4 }],
-			},
-		],
+		fyEndDateNe: 'Asadh 31, 2081',
+		maxDeductionRate: 1 / 3,
+		maxDeductionLimit: 3_00_000,
+		maxDeductionLimitWithSSF: 5_00_000,
+		maxInsuranceDeductionLimit: 40_000,
+		brackets: {
+			single: [
+				{
+					start: 0,
+					end: 5_00_000,
+					rate: 0.01,
+				},
+				{
+					start: 5_00_000,
+					end: 7_00_000,
+					rate: 0.1,
+				},
+				{
+					start: 7_00_000,
+					end: 10_00_000,
+					rate: 0.2,
+				},
+				{
+					start: 10_00_000,
+					end: 20_00_000,
+					rate: 0.3,
+				},
+				{
+					start: 20_00_000,
+					end: 50_00_000,
+					rate: 0.36,
+				},
+				{
+					start: 50_00_000,
+					end: Infinity,
+					rate: 0.39,
+				},
+			],
+			married: [
+				{
+					start: 0,
+					end: 6_00_000,
+					rate: 0.01,
+				},
+				{
+					start: 6_00_000,
+					end: 8_00_000,
+					rate: 0.1,
+				},
+				{
+					start: 8_00_000,
+					end: 11_00_000,
+					rate: 0.2,
+				},
+				{
+					start: 11_00_000,
+					end: 20_00_000,
+					rate: 0.3,
+				},
+				{
+					start: 20_00_000,
+					end: 50_00_000,
+					rate: 0.36,
+				},
+				{
+					start: 50_00_000,
+					end: Infinity,
+					rate: 0.39,
+				},
+			],
+		},
 	},
 };
 
-const data = JSON.stringify(obj);
-export { data };
+export default obj;

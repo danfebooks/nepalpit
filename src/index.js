@@ -19,49 +19,57 @@ import {
 } from './calculator';
 
 const tax = (options) => {
-	const { income, epf, cit, otherDeduction, year, single } = options;
+	const { income, epf, cit, ssf, insurance, year, single } = options;
 	const meta = breakdown(year);
 	console.log('Given year is', year);
-	const taxableAmount = getTotalTaxableAmount(
-		income,
-		epf,
-		cit,
-		otherDeduction,
-		meta,
-	);
+	const {
+		taxableIncome,
+		sumOfSsfEpfAndCit,
+		finalInsurance,
+	} = getTotalTaxableAmount(income, epf, cit, ssf, insurance, meta);
 	const maritalStatus = single ? 'single' : 'married';
 	const totalTaxAmountWithBrackets = getTotalTaxAmountWithBrackets(
 		meta.brackets[maritalStatus],
-		taxableAmount,
+		taxableIncome,
+		ssf > 0,
 	);
 
+	const format = (number) => new Intl.NumberFormat().format(number);
+
 	const result = {
-		sumOfEpfAndCit: epf + cit,
-		totalIncome: income,
-		totalDeduction: income - taxableAmount,
-		netAssessable: taxableAmount,
+		sumOfSsfEpfAndCit: format(sumOfSsfEpfAndCit),
+		insurance: format(finalInsurance),
+		totalIncome: format(income),
+		totalDeduction: format(income - taxableIncome),
+		netAssessable: format(taxableIncome),
 		totalTaxWithBrackets: totalTaxAmountWithBrackets
 			.filter((item) => item.assesibleIncome > 0)
 			.map((item) => {
 				const taxObj = {};
-				taxObj.assesibleIncome = item.assesibleIncome;
+				taxObj.assesibleIncome = format(item.assesibleIncome);
 				taxObj.rate = item.taxRate * 100;
-				taxObj.taxLiability = item.taxLiability;
+				taxObj.taxLiability = format(item.taxLiability);
 				return taxObj;
 			}),
-		totalAssesibleIncome: totalTaxAmountWithBrackets.reduce(
-			(initialValue, value) => initialValue + value.assesibleIncome,
-			0,
+		totalAssesibleIncome: format(
+			totalTaxAmountWithBrackets.reduce(
+				(initialValue, value) => initialValue + value.assesibleIncome,
+				0,
+			),
 		),
-		totalTaxLiability: totalTaxAmountWithBrackets.reduce(
-			(initialValue, value) => initialValue + value.taxLiability,
-			0,
-		),
-		netTaxLiabilityMonthly: getAmountRounded(
+		totalTaxLiability: format(
 			totalTaxAmountWithBrackets.reduce(
 				(initialValue, value) => initialValue + value.taxLiability,
 				0,
-			) / 12,
+			),
+		),
+		netTaxLiabilityMonthly: format(
+			getAmountRounded(
+				totalTaxAmountWithBrackets.reduce(
+					(initialValue, value) => initialValue + value.taxLiability,
+					0,
+				) / 12,
+			),
 		),
 	};
 
