@@ -22,10 +22,10 @@
     "babel"
   ],
   "author": "DanfeBooks Engineering Team <engineering@danfebooks.com> (https://www.danfebooks.com)",
-	"license": "MIT",
-	"publishConfig": {
-		"access": "public"
-	},
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "https://github.com/danfebooks/nepalpit/issues"
   },
@@ -46,6 +46,7 @@
   "devDependencies": {
     "@babel/core": "7.12.10",
     "@babel/preset-env": "7.12.11",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
     "babel-loader": "8.2.2",
     "concurrently": "5.3.0",
     "eslint": "7.18.0",
@@ -56,6 +57,8 @@
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "serve": "11.3.2",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
     "webpack": "5.16.0",
     "webpack-cli": "4.4.0"
   }

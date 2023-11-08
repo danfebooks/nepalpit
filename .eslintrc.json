@@ -7,17 +7,21 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
         "prettier"
     ],
     "plugins": [
 		"import",
-        "prettier"
+        "prettier",
+        "@typescript-eslint"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 11,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
 	},
-	"ignorePatterns": ["**/dist/**", "**/lib/**", "**/module/**", "**/docs/**"],
+    "ignorePatterns": ["**/dist/**", "**/lib/**", "**/module/**", "**/docs/**", "**/*.d.ts"],
     "rules": {
         "prettier/prettier": ["error"]
     }
