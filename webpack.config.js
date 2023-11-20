@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = (env) => {
 	return {
-		entry: './src/index.js',
+		entry: './src/index.ts',
 		output: {
 			filename: 'danfebooks.pit.js',
 			path: path.resolve(__dirname, env.outputPath),
@@ -14,16 +14,14 @@ module.exports = (env) => {
 		module: {
 			rules: [
 				{
-					test: /\.js$/,
+					test: /\.ts$/,
 					exclude: /(node_modules)/,
-					use: {
-						loader: 'babel-loader',
-						options: {
-							presets: ['@babel/preset-env'],
-						},
-					},
+					use: 'ts-loader',
 				},
 			],
+		},
+		resolve: {
+			extensions: ['.tsx', '.ts', '.js'],
 		},
 	};
 };
